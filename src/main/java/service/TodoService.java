@@ -38,4 +38,12 @@ public class TodoService {
         }
         throw new TodoNotFoundException();
     }
+
+    public void deleteTodo(String labelId) throws TodoNotFoundException {
+        if (this.todoRepository.existsById(labelId)) {
+            todoRepository.deleteById(labelId);
+            return;
+        }
+        throw new TodoNotFoundException();
+    }
 }

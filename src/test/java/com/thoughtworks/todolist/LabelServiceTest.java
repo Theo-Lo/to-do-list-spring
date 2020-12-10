@@ -95,7 +95,7 @@ public class LabelServiceTest {
     }
 
     @Test
-    void should_return_employee_not_found_exception_when_delete_employee_given_a_wrong_employee_id() {
+    void should_return_label_not_found_exception_when_delete_todo_given_a_wrong_todo_id() {
         //given
         //when
         final LabelNotFoundException LabelNotFoundException = assertThrows(LabelNotFoundException.class, () -> labelService.deleteLabel(labelId));

@@ -21,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class TodoServiceTest {
@@ -119,5 +119,27 @@ public class TodoServiceTest {
         final LabelNotFoundException LabelNotFoundException = assertThrows(LabelNotFoundException.class, () -> todoService.updateTodo(expected.getId(), expected));
         //then
         assertEquals("Label Not Found.", LabelNotFoundException.getMessage());
+    }
+
+    @Test
+    void should_call_repository_delete_by_id_when_delete_todo_given_a_todo_id() throws TodoNotFoundException {
+        //given
+        when(todoRepository.existsById(any())).thenReturn(true);
+
+        //when
+        todoService.deleteTodo(todoId);
+
+        //then
+        verify(todoRepository, times(1)).deleteById(todoId);
+    }
+
+    @Test
+    void should_return_todo_not_found_exception_when_delete_todo_given_a_wrong_todo_id() {
+        //given
+        //when
+        final TodoNotFoundException TodoNotFoundException = assertThrows(TodoNotFoundException.class, () -> todoService.deleteTodo(todoId));
+
+        //then
+        assertEquals("Todo Not Found.", TodoNotFoundException.getMessage());
     }
 }
