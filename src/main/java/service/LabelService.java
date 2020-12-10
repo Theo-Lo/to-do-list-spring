@@ -23,4 +23,12 @@ public class LabelService {
         return labelRepository.save(label);
     }
 
+    public void deleteLabel(String labelId) throws LabelNotFoundException {
+        if (this.labelRepository.existsById(labelId)) {
+            labelRepository.deleteById(labelId);
+            return;
+        }
+        throw new LabelNotFoundException();
+    }
+
 }
