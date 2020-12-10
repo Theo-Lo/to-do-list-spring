@@ -50,9 +50,9 @@ public class TodoController {
         return todoMapper.toResponse(todoService.createTodo(todo));
     }
 
-    @DeleteMapping("/{companyId}")
+    @DeleteMapping("/{todoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteCompany(@PathVariable String todoId) throws TodoNotFoundException {
+    public void deleteTodo(@PathVariable String todoId) throws TodoNotFoundException {
         todoService.deleteTodo(todoId);
     }
 }
