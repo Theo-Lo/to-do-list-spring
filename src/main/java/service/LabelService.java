@@ -31,4 +31,7 @@ public class LabelService {
         throw new LabelNotFoundException();
     }
 
+    public boolean labelExists(String labelId) {
+        return labelRepository.existsById(labelId);
+    }
 }

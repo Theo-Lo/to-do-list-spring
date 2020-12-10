@@ -13,6 +13,9 @@ public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
 
+    @Autowired
+    private LabelService labelService;
+
     public List<Todo> getTodos() {
         return todoRepository.findAll();
     }
@@ -23,5 +26,16 @@ public class TodoService {
 
     public Todo createTodo(Todo todo) {
         return todoRepository.save(todo);
+    }
+
+    public Todo updateTodo(String todoId, Todo todoUpdated) throws TodoNotFoundException, LabelNotFoundException {
+        if (this.todoRepository.existsById(todoId)) {
+            if (todoUpdated.getLabelIdList().stream().allMatch(labelService::labelExists)) {
+                todoUpdated.setId(todoId);
+                return todoRepository.save(todoUpdated);
+            }
+            throw new LabelNotFoundException();
+        }
+        throw new TodoNotFoundException();
     }
 }
