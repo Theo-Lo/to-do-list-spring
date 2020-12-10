@@ -1,5 +1,6 @@
 package service;
 
+import exception.LabelNotFoundException;
 import model.Label;
 import org.springframework.beans.factory.annotation.Autowired;
 import repository.LabelRepository;
@@ -12,6 +13,10 @@ public class LabelService {
 
     public List<Label> getLabels() {
         return labelRepository.findAll();
+    }
+
+    public Label getLabel(String labelId) throws LabelNotFoundException {
+        return labelRepository.findById(labelId).orElseThrow(LabelNotFoundException::new);
     }
 
 }
