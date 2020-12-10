@@ -1,4 +1,4 @@
-package advice;
+package com.thoughtworks.todolist.advice;
 
 public class ErrorResponse {
     private final String message;

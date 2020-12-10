@@ -1,18 +1,16 @@
 package com.thoughtworks.todolist;
 
-import exception.LabelNotFoundException;
-import exception.TodoNotFoundException;
-import model.Label;
-import model.Todo;
+import com.thoughtworks.todolist.exception.LabelNotFoundException;
+import com.thoughtworks.todolist.exception.TodoNotFoundException;
+import com.thoughtworks.todolist.model.Todo;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repository.LabelRepository;
-import repository.TodoRepository;
-import service.LabelService;
-import service.TodoService;
+import com.thoughtworks.todolist.repository.TodoRepository;
+import com.thoughtworks.todolist.service.LabelService;
+import com.thoughtworks.todolist.service.TodoService;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,9 +73,10 @@ public class TodoServiceTest {
     }
 
     @Test
-    void should_return_created_todo_when_create_todo_given_a_todo() {
+    void should_return_created_todo_when_create_todo_given_a_todo() throws LabelNotFoundException {
         //given
         Todo expected = new Todo();
+        expected.setLabelIdList(new ArrayList<>());
         when(todoRepository.save(any())).thenReturn(expected);
 
         //when
@@ -85,6 +84,21 @@ public class TodoServiceTest {
 
         //then
         assertEquals(expected, actual);
+    }
+
+    @Test
+    void should_return_label_not_found_exception_todo_when_create_todo_given_a_todo_with_non_existing_label_id() {
+        //given
+        Todo expected = new Todo();
+        List<String> labelsId = new ArrayList<>();
+        labelsId.add("123");
+        expected.setLabelIdList(labelsId);
+
+        //when
+        final LabelNotFoundException LabelNotFoundException = assertThrows(LabelNotFoundException.class, () -> todoService.createTodo(expected));
+
+        //then
+        assertEquals("Label Not Found.", LabelNotFoundException.getMessage());
     }
 
     @Test

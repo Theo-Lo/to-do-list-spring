@@ -1,34 +1,21 @@
-package model;
+package com.thoughtworks.todolist.dto;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-
+import java.awt.print.Book;
 import java.util.List;
 
-@Document
-public class Todo {
-    @MongoId(FieldType.OBJECT_ID)
-    private String id;
+public class TodoRequest {
     private String text;
     private Boolean done;
     private List<String> labelIdList;
 
-    public Todo() {
-    }
-
-    public Todo(String text, Boolean done, List<String> labelIdList) {
+    public TodoRequest(String text, Boolean done, List<String> labelIdList) {
         this.text = text;
         this.done = done;
         this.labelIdList = labelIdList;
     }
 
-    public String getId() {
-        return id;
-    }
+    public TodoRequest() {
 
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getText() {
@@ -55,4 +42,3 @@ public class Todo {
         this.labelIdList = labelIdList;
     }
 }
-

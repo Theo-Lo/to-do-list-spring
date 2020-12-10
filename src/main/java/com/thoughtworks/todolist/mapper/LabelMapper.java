@@ -1,10 +1,9 @@
-package mapper;
+package com.thoughtworks.todolist.mapper;
 
-import dto.LabelRequest;
-import dto.LabelResponse;
-import model.Label;
+import com.thoughtworks.todolist.dto.LabelRequest;
+import com.thoughtworks.todolist.dto.LabelResponse;
+import com.thoughtworks.todolist.model.Label;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component

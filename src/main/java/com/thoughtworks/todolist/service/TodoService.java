@@ -1,14 +1,15 @@
-package service;
+package com.thoughtworks.todolist.service;
 
-import exception.LabelNotFoundException;
-import exception.TodoNotFoundException;
-import model.Label;
-import model.Todo;
+import com.thoughtworks.todolist.exception.LabelNotFoundException;
+import com.thoughtworks.todolist.exception.TodoNotFoundException;
+import com.thoughtworks.todolist.model.Todo;
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.TodoRepository;
+import com.thoughtworks.todolist.repository.TodoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class TodoService {
     @Autowired
     private TodoRepository todoRepository;
@@ -24,8 +25,11 @@ public class TodoService {
         return todoRepository.findById(todoId).orElseThrow(TodoNotFoundException::new);
     }
 
-    public Todo createTodo(Todo todo) {
-        return todoRepository.save(todo);
+    public Todo createTodo(Todo todo) throws LabelNotFoundException {
+        if (todo.getLabelIdList().stream().allMatch(labelService::labelExists)) {
+            return todoRepository.save(todo);
+        }
+        throw new LabelNotFoundException();
     }
 
     public Todo updateTodo(String todoId, Todo todoUpdated) throws TodoNotFoundException, LabelNotFoundException {
@@ -45,5 +49,14 @@ public class TodoService {
             return;
         }
         throw new TodoNotFoundException();
+    }
+
+    public void removeLabelFromTodo(String labelId){
+        for(Todo todo: todoRepository.findByLabelIdList(labelId)){
+            List<String> labelIdList = todo.getLabelIdList();
+            labelIdList.remove(labelId);
+            todo.setLabelIdList(labelIdList);
+            todoRepository.save(todo);
+        }
     }
 }

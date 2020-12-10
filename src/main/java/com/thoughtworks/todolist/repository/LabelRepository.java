@@ -1,6 +1,6 @@
-package repository;
+package com.thoughtworks.todolist.repository;
 
-import model.Label;
+import com.thoughtworks.todolist.model.Label;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

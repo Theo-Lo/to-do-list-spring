@@ -1,15 +1,20 @@
-package service;
+package com.thoughtworks.todolist.service;
 
-import exception.LabelNotFoundException;
-import model.Label;
+import com.thoughtworks.todolist.exception.LabelNotFoundException;
+import com.thoughtworks.todolist.model.Label;
+import com.thoughtworks.todolist.repository.LabelRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import repository.LabelRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LabelService {
     @Autowired
     private LabelRepository labelRepository;
+
+    @Autowired
+    private TodoService todoService;
 
     public List<Label> getLabels() {
         return labelRepository.findAll();
@@ -26,6 +31,7 @@ public class LabelService {
     public void deleteLabel(String labelId) throws LabelNotFoundException {
         if (this.labelRepository.existsById(labelId)) {
             labelRepository.deleteById(labelId);
+            todoService.removeLabelFromTodo(labelId);
             return;
         }
         throw new LabelNotFoundException();

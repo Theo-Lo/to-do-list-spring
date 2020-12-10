@@ -1,24 +1,17 @@
-package model;
+package com.thoughtworks.todolist.dto;
 
-import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.FieldType;
-import org.springframework.data.mongodb.core.mapping.MongoId;
-
-import java.util.List;
-
-@Document
-public class Label {
-    @MongoId(FieldType.OBJECT_ID)
+public class LabelResponse {
     private String id;
     private String label;
     private String color;
 
-    public Label() {
-    }
-
-    public Label(String label, String color) {
+    public LabelResponse(String id, String label, String color) {
+        this.id = id;
         this.label = label;
         this.color = color;
+    }
+
+    public LabelResponse() {
     }
 
     public String getId() {
@@ -45,4 +38,3 @@ public class Label {
         this.color = color;
     }
 }
-

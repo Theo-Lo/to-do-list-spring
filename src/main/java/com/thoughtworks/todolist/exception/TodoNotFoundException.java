@@ -1,4 +1,4 @@
-package exception;
+package com.thoughtworks.todolist.exception;
 
 public class TodoNotFoundException extends Exception {
     public TodoNotFoundException() {

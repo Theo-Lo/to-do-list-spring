@@ -1,14 +1,14 @@
 package com.thoughtworks.todolist;
 
-import exception.LabelNotFoundException;
-import model.Label;
+import com.thoughtworks.todolist.exception.LabelNotFoundException;
+import com.thoughtworks.todolist.model.Label;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import repository.LabelRepository;
-import service.LabelService;
+import com.thoughtworks.todolist.repository.LabelRepository;
+import com.thoughtworks.todolist.service.LabelService;
 
 import java.util.ArrayList;
 import java.util.List;

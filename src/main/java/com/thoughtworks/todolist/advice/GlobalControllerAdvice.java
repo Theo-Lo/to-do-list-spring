@@ -1,7 +1,7 @@
-package advice;
+package com.thoughtworks.todolist.advice;
 
-import exception.LabelNotFoundException;
-import exception.TodoNotFoundException;
+import com.thoughtworks.todolist.exception.TodoNotFoundException;
+import com.thoughtworks.todolist.exception.LabelNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
