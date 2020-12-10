@@ -19,4 +19,8 @@ public class LabelService {
         return labelRepository.findById(labelId).orElseThrow(LabelNotFoundException::new);
     }
 
+    public Label createLabel(Label label) {
+        return labelRepository.save(label);
+    }
+
 }
