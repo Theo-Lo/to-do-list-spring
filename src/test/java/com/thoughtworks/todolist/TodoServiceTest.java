@@ -20,6 +20,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -68,5 +69,18 @@ public class TodoServiceTest {
 
         //then
         assertEquals("Todo Not Found.", TodoNotFoundException.getMessage());
+    }
+
+    @Test
+    void should_return_created_todo_when_create_todo_given_a_todo() {
+        //given
+        Todo expected = new Todo();
+        when(todoRepository.save(any())).thenReturn(expected);
+
+        //when
+        final Todo actual = todoService.createTodo(expected);
+
+        //then
+        assertEquals(expected, actual);
     }
 }

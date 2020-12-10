@@ -70,7 +70,7 @@ public class LabelServiceTest {
     }
 
     @Test
-    void should_return_created_label_when_create_label_given_an_label() {
+    void should_return_created_label_when_create_label_given_a_label() {
         //given
         Label expected = new Label();
         when(labelRepository.save(any())).thenReturn(expected);
@@ -83,7 +83,7 @@ public class LabelServiceTest {
     }
 
     @Test
-    void should_call_repository_delete_by_id_when_delete_label_given_an_label_id() throws LabelNotFoundException {
+    void should_call_repository_delete_by_id_when_delete_label_given_a_label_id() throws LabelNotFoundException {
         //given
         when(labelRepository.existsById(any())).thenReturn(true);
 
