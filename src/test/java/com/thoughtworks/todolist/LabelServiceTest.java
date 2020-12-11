@@ -2,6 +2,7 @@ package com.thoughtworks.todolist;
 
 import com.thoughtworks.todolist.exception.LabelNotFoundException;
 import com.thoughtworks.todolist.model.Label;
+import com.thoughtworks.todolist.service.TodoService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,7 +18,6 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.*;
 
@@ -28,6 +28,9 @@ public class LabelServiceTest {
 
     @Mock
     LabelRepository labelRepository;
+
+    @Mock
+    TodoService todoService;
 
     private final String labelId = "1";
 
@@ -92,10 +95,11 @@ public class LabelServiceTest {
 
         //then
         verify(labelRepository, times(1)).deleteById(labelId);
+        verify(todoService, times(1)).removeLabelFromTodo(labelId);
     }
 
     @Test
-    void should_return_label_not_found_exception_when_delete_todo_given_a_wrong_todo_id() {
+    void should_return_label_not_found_exception_when_delete_label_given_a_wrong_label_id() {
         //given
         //when
         final LabelNotFoundException LabelNotFoundException = assertThrows(LabelNotFoundException.class, () -> labelService.deleteLabel(labelId));
